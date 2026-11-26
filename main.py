@@ -9,6 +9,7 @@
     13주차의 첫 번째 일입니다. 고치기 전에 「명세」부터 복원하세요.
 """
 import csv
+import re
 
 import config
 
@@ -36,7 +37,10 @@ def 정제(행들, 설정):
             continue
 
         try:
-            값 = int(원값)
+            금액 = 원값.strip()
+            if re.fullmatch(r"[0-9]{1,3}(,[0-9]{3})+", 금액):
+                금액 = 금액.replace(",", "")
+            값 = int(금액)
         except ValueError:
             버림["숫자가 아님"] += 1
             continue
